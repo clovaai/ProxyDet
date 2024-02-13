@@ -1,0 +1,59 @@
+# Code Adapted from https://github.com/facebookresearch/Detic/blob/main/configs/Detic_LbaseI_CLIP_R5021k_640b64_4x_ft4x_max-size.yaml
+_BASE_: "Base-C2_L_R5021k_640b64_4x.yaml"
+MODEL:
+  ROI_BOX_HEAD:
+    USE_ZEROSHOT_CLS: True
+    IMAGE_LABEL_LOSS: 'max_size'
+    USE_REGIONAL_EMBEDDING: True
+  ROI_HEADS:
+    BASE_CAT_MASK: "datasets/metadata/lvis_v1_base_cat_mask.npy"
+    CMM:
+      MIXUP_STAGE: [2]
+      MIXUP_STAGE_TEST: [2]
+      MIXUP_BETA: 1.0
+      LOSS: "l1"
+      LOSS_WEIGHT: 256.0
+      SEPARATED_BRANCH: True
+      BASE_ALPHA: 0.15
+      NOVEL_BETA: 0.35
+      USE_INL: False
+      PROTOTYPE: "obj_score"
+      PROTOTYPE_TEMP: 1.0
+      CLASSIFIER_TEMP: 1.0
+      USE_SIGMOID_CE: True
+  WEIGHTS: "models/BoxSup-C2_Lbase_CLIP_R5021k_640b64_4x.pth"
+SOLVER:
+  MAX_ITER: 90000
+  IMS_PER_BATCH: 64
+  BASE_LR: 0.0002
+  WARMUP_ITERS: 1000
+  WARMUP_FACTOR: 0.001
+DATASETS:
+  TRAIN: ("lvis_v1_train_norare","imagenet_lvis_v1")
+DATALOADER:
+  SAMPLER_TRAIN: "MultiDatasetSampler"
+  DATASET_RATIO: [1, 4]
+  USE_DIFF_BS_SIZE: True
+  DATASET_BS: [8, 32]
+  DATASET_INPUT_SIZE: [640, 320]
+  USE_RFS: [True, False]
+  DATASET_INPUT_SCALE: [[0.1, 2.0], [0.5, 1.5]]
+  FILTER_EMPTY_ANNOTATIONS: False
+  MULTI_DATASET_GROUPING: True
+  DATASET_ANN: ['box', 'image']
+  NUM_WORKERS: 8
+WITH_IMAGE_LABELS: True
+
+
+
+
+
+
+
+
+
+
+
+
+
+

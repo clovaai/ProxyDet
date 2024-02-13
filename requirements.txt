@@ -1,0 +1,6 @@
+opencv-python==4.6.0
+mss==6.1.0
+timm==0.5.4
+lvis
+nltk==3.7
+git+https://github.com/openai/CLIP.git

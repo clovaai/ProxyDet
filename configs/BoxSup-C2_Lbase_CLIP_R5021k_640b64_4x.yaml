@@ -1,0 +1,7 @@
+# Code Copied from https://github.com/facebookresearch/Detic/blob/main/configs/BoxSup-C2_Lbase_CLIP_R5021k_640b64_4x.yaml
+_BASE_: "Base-C2_L_R5021k_640b64_4x.yaml"
+MODEL:
+  ROI_BOX_HEAD:
+    USE_ZEROSHOT_CLS: True
+DATASETS:
+  TRAIN: ("lvis_v1_train_norare",)
